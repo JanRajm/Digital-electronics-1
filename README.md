@@ -1,6 +1,6 @@
 # Digital-electronics-1
 Tady něco zkusím
-## Další nadpis
+#### Další malý nadpis
 
 [**Stránky VUT**](https://www.vutbr.cz/)
 
