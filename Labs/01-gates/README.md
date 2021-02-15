@@ -3,6 +3,7 @@ Celý úkol jsem vyřešil v jednom skriptu:
 
 [Odkaz na EDA playground](https://www.edaplayground.com/x/X8dp)
 
+[Odkaz na GitHub](https://github.com/JanRajm/Digital-electronics-1)
 ## Časové průběhy výstupů
 ![průběhy](waveforms.png)
 
