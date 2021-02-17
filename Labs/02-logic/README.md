@@ -22,6 +22,8 @@
 ![obr1](k-mapy.png)
 ![obr2](rovnice.png)
 
+## [Odkaz na EDA playground](https://www.edaplayground.com/x/9_fN)
+
 ### design.vhdl
 ```vhdl
 library ieee;
