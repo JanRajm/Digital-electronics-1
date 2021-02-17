@@ -19,11 +19,9 @@
 | 14 | 1 1 | 1 0 | 1 | 0 | 0 |
 | 15 | 1 1 | 1 1 | 0 | 1 | 0 |
 
-is_equal_SoP = /a/b + /b0b1/a0a1 + ba + b0/b1a0/a1 + ba
+![obr1](k-mapy.png)
+![obr2](rovnice.png)
 
-is_less_PoS = (b0+b1 + a0+a1)(b0+/b1 + a0+a1)(b0+/b1 + a0+/a1)(/b+/a0+/a1)(/b0+b1 + a0+a1)(/b0+b1 + a0/+a1)(/b0+b1 + /a0+a1)(/b0+/b1 + a0+a1)(/b0+/b1 + /a0+a1)(/b0+/b1 + /a0+a1)(/b0+/b1 + /a0+/a1)
-![rovnice.png](02-logic)
-![k-mapy.png](02-logic)
 ### design.vhdl
 ```vhdl
 library ieee;
@@ -141,22 +139,4 @@ end architecture testbench;
 ```
 
 ### výpis z konzole
-![konzole.png](02-logic)
-[2021-02-17 10:48:19 EST] ghdl -i design.vhd testbench.vhd  && ghdl -m  tb_comparator_2bit && ghdl -r  tb_comparator_2bit   --vcd=dump.vcd && sed -i 's/^U/X/g; s/^-/X/g; s/^H/1/g; s/^L/0/g' dump.vcd 
-
-analyze design.vhd
-
-analyze testbench.vhd
-
-elaborate tb_comparator_2bit
-
-testbench.vhd:51:9:@0ms:(report note): Stimulus process started
-
-testbench.vhd:75:9:@400ns:(assertion error): Test failed for input combination: 0101, 0111
-
-testbench.vhd:82:9:@400ns:(report note): Stimulus process finished
-
-Finding VCD file...
-./dump.vcd
-[2021-02-17 10:48:21 EST] Opening EPWave...
-Done
+![obr3](konzole.png)
