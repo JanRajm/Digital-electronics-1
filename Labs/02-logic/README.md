@@ -20,3 +20,4 @@
 | 15 | 1 1 | 1 1 | 0 | 1 | 0 |
 
 is_equal_SoP = /a/b + /b0b1/a0a1 + ba + b0/b1a0/a1 + ba
+is_less_PoS = (b + a)(b0/b1 + a)(b0/b1 + a0/a1)(/b+/a)(/b0b1 + a)(/b0b1 + a0/a1)(/b0b1 + /a0a1)(/b + a)(/b + /a0a1)(/b + /a0a1)(/b + /a)
