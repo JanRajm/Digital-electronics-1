@@ -73,3 +73,4 @@ p_stimulus : process
 - otevři dvojklikem, nachází se pod **Simulation sources** -> **<název simulace>** -> **<název>(behavioral).vhdl**
 
 -**HOTOVO!**
+![obr1](de1-cv3-tut.png)
