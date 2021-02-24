@@ -47,3 +47,4 @@ p_stimulus : process
 ```
 
 ## Waveform
+![obr1](de1-cv3-waveform.png)
