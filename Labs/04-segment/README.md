@@ -9,7 +9,7 @@
 architecture Behavioral of seg is
 
 begin
-seg_7 : process(hex_i)-- má se jmenovat stejně jako entita? Raději jiný
+seg_7 : process(hex_i)
 begin
 ----------------------------36:30
         case hex_i is
@@ -109,14 +109,30 @@ begin
     seg_o(0) => CG 
     );
     
-    AN <= b"11110111";
-    LED(3 downto 0) <= SW;  
-    
-    LED(4) <= '1' when SW = "0000";
-    LED(5) <= '1' when SW > "1001";
-    LED(6) <= '1' when SW =("0001" or "0011" or "0101" or "0111" or "1001");
-    LED(7) <= '1' when SW = ("0001" or "0010" or "0100" or "1000");
-end Behavioral;
+  
 ```
 
 ### LED(7:4) indicators
+
+#### Kód
+```vhdl
+
+
+
+    LED(3 downto 0) <= SW;  
+                     -- 4567           --8421 
+    LED(7 downto 4) <= "1000" when SW = "0000" else --0
+                       "0100" when SW > "1001" else --9
+                       "0010" when SW = "0001" else --1
+                       "0010" when SW = "0011" else
+                       "0010" when SW = "0101" else
+                       "0010" when SW = "0111" else
+                       "0010" when SW = "1001" else -- konec lichých
+                       "0001" when SW = "0001" else -- mocniny dvou
+                       "0001" when SW = "0010" else
+                       "0001" when SW = "0100" else
+                       "0001" when SW = "1000" else -- konec mocnin dvou
+                       "0110"; -- není nikde
+end Behavioral;
+```
+![obr3](de1-cv4-waveform3.png) 
