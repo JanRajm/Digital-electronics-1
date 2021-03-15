@@ -127,4 +127,4 @@ p_reset_gen : process
 
 end architecture Behavioral;
 ```
-![obr1](de1-cv5-counter-wf.png)
+![obr1](de1-cv5-couner-wf.png)
