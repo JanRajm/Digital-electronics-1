@@ -9,6 +9,7 @@
    | 500&nbsp;ms | 50 000 000 | `x"02fa_f080"` | `b"0010_1111_1010_1111_0000_1000_0000"` |
    | 1&nbsp;sec | 100 000 000 | `x"5F5_E100"` | `b"0101_1111_0101_1110_0001_1000_0000_0000"` |
    
+   ![obr1](de1-cv5-schéma.png)
    ## Counter code listing
 ```VHDL
  p_cnt_up_down : process(clk)
@@ -80,7 +81,7 @@ p_reset_gen : process
     clk_en0 : entity work.clock_enable
         generic map(
             --- WRITE YOUR CODE HERE
-            g_MAX => 100000000 -- kolik period proběhne, než nastane pulz ce_o
+            g_MAX => 100000000 
         )
         port map(
             clk   => clck_100MHz,  
