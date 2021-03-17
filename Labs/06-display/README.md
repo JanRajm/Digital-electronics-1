@@ -1,2 +1,2 @@
 ## 6. computer assignment
-![obr1](de1-cv6-wf1.png)
+![obr1](de1-cv6-7seg.png)
