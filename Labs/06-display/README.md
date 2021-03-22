@@ -162,3 +162,4 @@ end architecture Behavioral;
 
 ## Images
 ![obr1](de1-cv6-wf.png)
+![obr1](de1-cv6-circuit.png)
