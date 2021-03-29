@@ -66,7 +66,6 @@ p_stimulus : process
             
             assert(s_q = '1' and s_q_bar = '1')
             report "somethig's wrong #2" severity error;
-            ----------------------asserty
             wait for 200 ns;
              s_d <= '1';				
             wait for 100 ns;
@@ -80,10 +79,10 @@ p_stimulus : process
             wait;                   
     end process p_stimulus;
 ```
-
+![obr1](de1-cv3-waveform.png)
 ### 3)
 
-##### p_d_ff_rst
+#### p_d_ff_rst + stimulus tb_d_ff_rst
 ```vhdl
 p_d_ff_rst : process (rst, clk)
     begin
@@ -97,8 +96,31 @@ p_d_ff_rst : process (rst, clk)
                    end if;
                end if;
     end process p_d_ff_rst;
+    
+    
+    
+    p_stimulus : process
+        begin
+            s_d <= '0';			
+            wait for 200 ns;
+            s_d <= '1';
+            
+            assert(s_q = '0' and s_q_bar = '0')
+            report "somethig's wrong #1" severity error;
+            			
+            wait for 100 ns;
+            s_d <= '0';
+            wait for 10 ns;		
+            s_d <= '1';
+            wait for 200 ns;
+            s_d <= '0';				
+            wait for 10 ns;
+            
+            wait;                   
+    end process p_stimulus;
 ```
-##### p_d_ff_arst
+![obr1](de1-cv7-d_rst.png)
+#### p_d_ff_arst + stimulus
 ```vhdl
 p_d_ff_arst : process (arst, clk)
     begin
@@ -110,8 +132,30 @@ p_d_ff_arst : process (arst, clk)
             q_bar <= not d;
         end if;
     end process p_d_ff_arst;
+    
+    
+    p_stimulus : process
+        begin
+            s_d <= '0';			
+            wait for 200 ns;
+            s_d <= '1';
+            
+            assert(s_q = '0' and s_q_bar = '0')
+            report "somethig's wrong #1" severity error;
+            			
+            wait for 100 ns;
+            s_d <= '0';
+            wait for 10 ns;		
+            s_d <= '1';
+            wait for 200 ns;
+            s_d <= '0';				
+            wait for 10 ns;
+            
+            wait;                   
+    end process p_stimulus;
 ```
-##### p_jk_ff_rst
+![obr1](de1-cv7-d_arst.png)
+#### p_jk_ff_rst + stimulus
 ```vhdl
 p_jk_ff_rst : process (rst, clk)
             begin
@@ -131,9 +175,34 @@ p_jk_ff_rst : process (rst, clk)
                     end if;
                 end if;
         end process p_jk_ff_rst;
+        
+        
+        p_stimulus : process
+        begin
+            s_j <= '0';	
+            s_k <= '0';		
+            wait for 100 ns;
+            s_j <= '1';
+            s_k <= '0';
+            assert(s_q = '0' and s_q_bar = '0')
+            report "somethig's wrong #1" severity error;
+            			
+            wait for 100 ns;
+            s_j <= '0';
+            s_k <= '1';
+            wait for 10 ns;		
+            s_j <= '1';
+            s_k <= '1';
+            wait for 200 ns;
+            s_j <= '0';
+            s_k <= '0';				
+            wait for 10 ns;
+            
+            wait;                   
+    end process p_stimulus;
 ```
-
-##### p_t_ff_rst
+![obr1](de1-cv7-jk.png)
+##### p_t_ff_rst + stimulus
 ```vhdl
 p_t_ff_rst : process (rst, clk)
             begin
@@ -150,4 +219,22 @@ p_t_ff_rst : process (rst, clk)
                     end if;
                 end if;
         end process p_t_ff_rst;
+        
+        
+        p_stimulus : process
+        begin
+            
+            s_t <= '0';		
+            wait for 100 ns;
+            s_t <= '1';
+            assert(s_q = '0' and s_q_bar = '0')
+            report "somethig's wrong #1" severity error;
+            wait for 100 ns;
+            s_t <= '1';
+            wait for 100 ns;
+            s_t <= '1';
+            wait for 100 ns;
+            s_t <= '1';
+     end process;
 ```
+![obr1](de1-cv7-t.png)
