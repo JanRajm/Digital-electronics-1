@@ -27,6 +27,59 @@
    | 1 | 1 | 0 | Invert |
 
 ### 2)
+#### process
+```vhdl
+p_d_latch : process (d,arst,en)
+begin
+    if arst = '1' then
+        q <= '0';
+        q_bar <= '1';
+    elsif (en = '1') then
+        q <= d;
+        q_bar <= not d;
+    end if;
+end process p_d_latch;
+```
+#### Stimulus of Test Bench
+```vhdl
+p_stimulus : process
+        begin
+            s_en <= '0';	
+            s_d <= '0';			
+            wait for 200 ns;
+            s_d <= '1';
+            s_en <= '1';	
+            
+            assert(s_q = '0' and s_q_bar = '0')
+            report "somethig's wrong #1" severity error;
+            			
+            wait for 100 ns;
+            s_d <= '0';
+            s_en <= '1';				
+            wait for 10 ns;		
+            s_d <= '1';
+            wait for 200 ns;
+            s_en <= '0';	
+            s_d <= '0';				
+            wait for 10 ns;
+            s_en <= '1';	
+            
+            assert(s_q = '1' and s_q_bar = '1')
+            report "somethig's wrong #2" severity error;
+            ----------------------asserty
+            wait for 200 ns;
+             s_d <= '1';				
+            wait for 100 ns;
+            s_d <= '0';				
+            wait for 50 ns;		
+            s_d <= '1';
+            wait for 100 ns;	
+            s_d <= '0';				
+            wait for 100 ns;
+            s_d <= '0';
+            wait;                   
+    end process p_stimulus;
+```
 
 ### 3)
 
