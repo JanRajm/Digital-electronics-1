@@ -79,7 +79,7 @@ p_stimulus : process
             wait;                   
     end process p_stimulus;
 ```
-![obr1](de1-cv3-waveform.png)
+![obr1](de1-cv7-d_latch.png)
 ### 3)
 
 #### p_d_ff_rst + stimulus tb_d_ff_rst
