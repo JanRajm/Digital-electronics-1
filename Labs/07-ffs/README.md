@@ -238,3 +238,5 @@ p_t_ff_rst : process (rst, clk)
      end process;
 ```
 ![obr1](de1-cv7-t.png)
+### 4)
+![obr1](de1-cv7-sr.png)
