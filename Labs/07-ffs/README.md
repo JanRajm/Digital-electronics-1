@@ -1,8 +1,10 @@
  ## Cv. 7
  
  D: q(n+1) = D
- JK: q(n+1) = 
- T: q(n+1) = 
+ 
+ JK: q(n+1) = j/q(n) + /kq(n)
+ 
+ T: q(n+1) = t/q(n) + /tq(n)
  
  ### Preparation task
  | **D** | **Qn** | **Q(n+1)** | **Comments** |
