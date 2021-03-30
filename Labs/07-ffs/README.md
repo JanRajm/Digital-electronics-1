@@ -1,5 +1,9 @@
  ## Cv. 7
  
+ D: q(n+1) = D
+ JK: q(n+1) = 
+ T: q(n+1) = 
+ 
  ### Preparation task
  | **D** | **Qn** | **Q(n+1)** | **Comments** |
    | :-: | :-: | :-: | :-- |
@@ -40,9 +44,23 @@ begin
     end if;
 end process p_d_latch;
 ```
-#### Stimulus of Test Bench
+#### Reset + Stimulus
 ```vhdl
-p_stimulus : process
+p_reset    : process
+        begin
+            s_arst <= '0';
+            wait for 20 ns;
+            s_arst <= '1';
+            wait for 50 ns;
+            s_arst <= '0';
+            wait for 200 ns;
+            s_arst <= '1';
+            wait for 50 ns;
+            s_arst <= '0';
+            wait;
+        end process p_reset;
+        
+     p_stimulus : process
         begin
             s_en <= '0';	
             s_d <= '0';			
@@ -82,7 +100,7 @@ p_stimulus : process
 ![obr1](de1-cv7-d_latch.png)
 ### 3)
 
-#### p_d_ff_rst + stimulus tb_d_ff_rst
+#### p_d_ff_rst  
 ```vhdl
 p_d_ff_rst : process (rst, clk)
     begin
@@ -96,10 +114,39 @@ p_d_ff_rst : process (rst, clk)
                    end if;
                end if;
     end process p_d_ff_rst;
-    
-    
-    
-    p_stimulus : process
+```
+#### clock, reset, stimulus tb_d_ff_rst
+```vhdl
+    p_clk_gen : process
+        begin
+            while now < 750 ns loop         -- 75 periods of 100MHz clock
+                clk <= '0';
+                wait for c_CLK_100MHZ_PERIOD / 2;
+                clk <= '1';
+                wait for c_CLK_100MHZ_PERIOD / 2;
+            end loop;
+            wait;
+        end process p_clk_gen;
+        
+    p_reset    : process
+        begin
+            s_rst <= '0';
+            wait for 50 ns;
+            s_rst <= '1';
+            wait for 20 ns;
+            s_rst <= '0';
+            wait for 100 ns;
+            s_rst <= '1';
+            wait for 50 ns;
+            s_rst <= '0';
+            wait for 20 ns;
+            s_rst <= '1';
+            wait for 20 ns;
+            s_rst <= '0';
+            wait;
+        end process p_reset;
+        
+     p_stimulus : process
         begin
             s_d <= '0';			
             wait for 200 ns;
@@ -120,7 +167,7 @@ p_d_ff_rst : process (rst, clk)
     end process p_stimulus;
 ```
 ![obr1](de1-cv7-d_rst.png)
-#### p_d_ff_arst + stimulus
+#### p_d_ff_arst 
 ```vhdl
 p_d_ff_arst : process (arst, clk)
     begin
@@ -132,9 +179,35 @@ p_d_ff_arst : process (arst, clk)
             q_bar <= not d;
         end if;
     end process p_d_ff_arst;
-    
-    
-    p_stimulus : process
+```
+#### clock, reset, stimulus
+```vhdl   
+   p_clk_gen : process
+        begin
+            while now < 750 ns loop         -- 75 periods of 100MHz clock
+                clk <= '0';
+                wait for c_CLK_100MHZ_PERIOD / 2;
+                clk <= '1';
+                wait for c_CLK_100MHZ_PERIOD / 2;
+            end loop;
+            wait;
+        end process p_clk_gen;
+        
+   p_reset    : process
+        begin
+            s_arst <= '0';
+            wait for 50 ns;
+            s_arst <= '1';
+            wait for 20 ns;
+            s_arst <= '0';
+            wait for 100 ns;
+            s_arst <= '1';
+            wait for 50 ns;
+            s_arst <= '0';
+            wait;
+        end process p_reset;
+        
+     p_stimulus : process
         begin
             s_d <= '0';			
             wait for 200 ns;
@@ -155,7 +228,7 @@ p_d_ff_arst : process (arst, clk)
     end process p_stimulus;
 ```
 ![obr1](de1-cv7-d_arst.png)
-#### p_jk_ff_rst + stimulus
+#### p_jk_ff_rst 
 ```vhdl
 p_jk_ff_rst : process (rst, clk)
             begin
@@ -175,9 +248,35 @@ p_jk_ff_rst : process (rst, clk)
                     end if;
                 end if;
         end process p_jk_ff_rst;
+```
+#### clock, reset, stimulus
+  ```vhdl
+        p_clk_gen : process
+        begin
+            while now < 750 ns loop         -- 75 periods of 100MHz clock
+                clk <= '0';
+                wait for c_CLK_100MHZ_PERIOD / 2;
+                clk <= '1';
+                wait for c_CLK_100MHZ_PERIOD / 2;
+            end loop;
+            wait;
+        end process p_clk_gen;
+    
+    p_reset    : process
+        begin
+            s_rst <= '0';
+            wait for 50 ns;
+            s_rst <= '1';
+            wait for 20 ns;
+            s_rst <= '0';
+            wait for 100 ns;
+            s_rst <= '1';
+            wait for 50 ns;
+            s_rst <= '0';
+            wait;
+        end process p_reset;
         
-        
-        p_stimulus : process
+    p_stimulus : process
         begin
             s_j <= '0';	
             s_k <= '0';		
@@ -200,9 +299,9 @@ p_jk_ff_rst : process (rst, clk)
             
             wait;                   
     end process p_stimulus;
-```
+   ```
 ![obr1](de1-cv7-jk.png)
-##### p_t_ff_rst + stimulus
+##### p_t_ff_rst 
 ```vhdl
 p_t_ff_rst : process (rst, clk)
             begin
@@ -219,9 +318,36 @@ p_t_ff_rst : process (rst, clk)
                     end if;
                 end if;
         end process p_t_ff_rst;
+```
+#### clock, reset, stimulus
+       
+```vhdl
+        p_clk_gen : process
+        begin
+            while now < 750 ns loop         -- 75 periods of 100MHz clock
+                clk <= '0';
+                wait for c_CLK_100MHZ_PERIOD / 2;
+                clk <= '1';
+                wait for c_CLK_100MHZ_PERIOD / 2;
+            end loop;
+            wait;
+        end process p_clk_gen;
+    
+    p_reset    : process
+        begin
+            s_rst <= '0';
+            wait for 50 ns;
+            s_rst <= '1';
+            wait for 20 ns;
+            s_rst <= '0';
+            wait for 100 ns;
+            s_rst <= '1';
+            wait for 50 ns;
+            s_rst <= '0';
+            wait;
+        end process p_reset;
         
-        
-        p_stimulus : process
+    p_stimulus : process
         begin
             
             s_t <= '0';		
@@ -239,13 +365,5 @@ p_t_ff_rst : process (rst, clk)
 ```
 ![obr1](de1-cv7-t.png)
 
-#### reset
-```vhdl
-
-```
-#### clock
-```vhdl
-
-```
 ### 4)
 ![obr1](de1-cv7-sr.png)
