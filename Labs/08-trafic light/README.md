@@ -4,8 +4,8 @@
 | **Input P** | `0` | `0` | `1` | `1` | `0` | `1` | `0` | `1` | `1` | `1` | `1` | `0` | `0` | `1` | `1` | `1` |
 | :-- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 | **Clock** | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) |
-| **State** | A |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
-| **Output R** | `0` |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| **State** | A | A | B | C | C | D | A | B | C | D | B | B | B | C | D | B |
+| **Output R** | `0` | `0` | `0` | `0` | `0` | `1` | `0` | `0` | `0` | `1` | `0` | `0` | `0` | `0` | `1` | `0` |
 
 | **RGB LED** | **Artix-7 pin names** | **Red** | **Yellow** | **Green** |
 | :-: | :-: | :-: | :-: | :-: |
@@ -13,6 +13,7 @@
 | LD17 | N16, R11, G14 | `1,0,0` | `1,1,0` | `0,1,0` |
 
 ## Traffic light controller
+![obr0](de1-cv8-sd.png)
 ```vhdl
 p_traffic_fsm : process(clk)
     begin
@@ -130,3 +131,4 @@ p_output_fsm : process(s_state)
         end case;
     end process p_output_fsm;
 ```
+![obr1](de1-cv8-wf.png)
