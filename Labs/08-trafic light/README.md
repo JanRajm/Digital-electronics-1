@@ -14,7 +14,7 @@
 | LD17 | N16, R11, G14 | `1,0,0` | `1,1,0` | `0,1,0` |
 
 ## Traffic light controller
-![obr0](de1-cv8-sd.png)
+![obr0](de1-cv8-sg.png)
 ```vhdl
 p_traffic_fsm : process(clk)
     begin
