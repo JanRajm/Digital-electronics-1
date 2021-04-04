@@ -1,6 +1,7 @@
 # 8
 
 ## Preparation Task
+![obr0](de1-cv8-led.png)
 | **Input P** | `0` | `0` | `1` | `1` | `0` | `1` | `0` | `1` | `1` | `1` | `1` | `0` | `0` | `1` | `1` | `1` |
 | :-- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
 | **Clock** | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) |
