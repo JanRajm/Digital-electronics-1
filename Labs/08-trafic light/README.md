@@ -167,8 +167,10 @@ p_smart_traffic_fsm : process(clk)
                             s_cnt <= s_cnt + 1;
                             if (west_trig_i = '0' and south_trig_i = '1') then
                                 s_state <= SOUTH_GO;
+                                s_cnt   <= c_ZERO;
                             elsif (west_trig_i = '1' and south_trig_i = '0') then
                                 s_state <= WEST_GO;
+                                s_cnt   <= c_ZERO;
                             end if;
                         else
                             -- Move to the next state
@@ -202,8 +204,10 @@ p_smart_traffic_fsm : process(clk)
                             s_cnt <= s_cnt + 1;
                             if (west_trig_i = '1' and south_trig_i = '0') then
                                 s_state <= WEST_GO;
+                                s_cnt   <= c_ZERO;
                             elsif (west_trig_i = '0' and south_trig_i = '1') then
                                 s_state <= SOUTH_GO;
+                                s_cnt   <= c_ZERO;
                             end if;
                         else
                             -- Move to the next state
