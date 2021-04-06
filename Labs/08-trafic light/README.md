@@ -137,11 +137,12 @@ p_output_fsm : process(s_state)
 
 
 ## Smart controller
-| **Trigger West**  | `0` | `0` | `1` | `1` | `0` | `1` | `0` | `1` | `1` | `1` | `1` | `0` | `0` | `1` | `1` | `1` |
-| :-- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
-| **Trigger South** | `0` | `0` | `1` | `1` | `0` | `1` | `0` | `1` | `1` | `1` | `1` | `0` | `0` | `1` | `1` | `1` |
-| **Clock** | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) |
-| **State** | A | A | B | C | C | D | A | B | C | D | B | B | B | C | D | B |
+| **Trigger West**  | `0` | `0` | `1` | `1` | `0` | `0` | `0` | `0` | `1` | `1` | `1` | `0` | 
+| :-- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| **Trigger South** | `0` | `0` | `0` | `1` | `0` | `1` | `1` | `0` | `1` | `0` | `0` | `0` |
+| **Its time to go** | `0` | `1` | `0` | `1` | `0` | `1` | `1` | `0` | `1` | `0` | `1` | `0` |
+| **Clock** | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) | ![rising](eq_uparrow.png) |
+| **State** | Stop1 | WestGo | WestGo | WestWait | WestWait | Stop2 | SouthGo | SouthGo | SouthWait | SouthWait | Stop1 | SouthGo | 
 
 ![obr1](de1-cv8-sd2.png)
 ```vhdl
