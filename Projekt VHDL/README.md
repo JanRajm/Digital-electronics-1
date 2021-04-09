@@ -151,5 +151,5 @@ begin
 end architecture testbench;
 
 ```
-## Wavwforms
-![obr1](option-waveform.png) 
+## Wavewforms
+![obr1](option-waveform1.png) 
