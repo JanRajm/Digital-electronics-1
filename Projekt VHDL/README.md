@@ -86,17 +86,6 @@ end Behavioral;
 ```
 ## tb_option.vhdl
 ```vhdl
-------------------------------------------------------------------------
---
--- Template for 4-digit 7-segment display driver testbench.
--- Nexys A7-50T, Vivado v2020.1.1, EDA Playground
---
--- Copyright (c) 2020 Tomas Fryza
--- Dept. of Radio Electronics, Brno University of Technology, Czechia
--- This work is licensed under the terms of the MIT license.
---
-------------------------------------------------------------------------
-
 library ieee;
 use ieee.std_logic_1164.all;
 
