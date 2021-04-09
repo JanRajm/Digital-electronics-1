@@ -116,14 +116,9 @@ begin
             choose_o  => s_choose_o
             --state   => s_state
         );
-    -- Connecting testbench signals with driver_7seg_4digits entity
-    -- (Unit Under Test)
-    --- WRITE YOUR CODE HERE
-
-    
-
+   
     --------------------------------------------------------------------
-    -- Data generation process
+    -- Data generation process - simulation button presses
     --------------------------------------------------------------------
     p_stimulus : process
     begin
