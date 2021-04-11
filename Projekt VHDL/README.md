@@ -64,6 +64,10 @@ begin
                 if rising_edge(btn_i) then
                     s_state <= VELOCITY;
                 end if;
+            when others =>
+                if rising_edge(btn_i) then
+                    s_state <= VELOCITY;
+                end if;
          end case;
     end process p_choose_state;
     
@@ -77,7 +81,8 @@ begin
                 choose_o  <= "01";   
             when DISTANCE =>
                 choose_o  <= "10";   
-            
+            when others =>
+                choose_o <= "00";
         end case;
     end process p_output;
     
