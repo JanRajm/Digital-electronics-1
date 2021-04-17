@@ -127,4 +127,5 @@ begin
 
 end architecture testbench;
 ```
-![obr1](avg_velocity_waveform.png) 
+![obr1](avg_velocity_waveform.PNG) 
+- output value of avarage velocity for past two values of instantaneous speed
