@@ -20,7 +20,6 @@ begin
  
 p_avg_velocity : process(clk)
 -- variable temp is used for clk division by 2. When temp is equal to 0, there is no shift
-    --variable sum_of_velocities  : unsigned(7-1 downto 0) := "0000000";
   variable count_of_shifts     : integer := 1;
   variable temp                : integer := 1;
 
@@ -28,7 +27,7 @@ p_avg_velocity : process(clk)
     if rising_edge(clk) then
         sum_of_velocities <= sum_of_velocities + unsigned(velocity);    
         temp := 1-temp;
-        -- following code works as clock divider by two. Usefull when dealing with division in binary
+        -- Following code works as clock frequency divider by two. Usefull when dealing with division in binary.
         if temp = 1 then 
             s_avg_velocity <= shift_right(unsigned(sum_of_velocities), count_of_shifts);
             count_of_shifts := count_of_shifts;
