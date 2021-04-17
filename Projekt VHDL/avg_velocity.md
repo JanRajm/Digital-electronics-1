@@ -127,4 +127,5 @@ begin
 end architecture testbench;
 ```
 ![obr1](avg_velocity_waveform.PNG) 
-- output value of avarage velocity for past two values of instantaneous speed
+- Output value of avarage velocity for past two values of instantaneous speed.
+- An error appears when dealing with odd number. 
