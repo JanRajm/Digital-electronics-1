@@ -28,7 +28,8 @@ p_avg_velocity : process(clk)
     if rising_edge(clk) then
         sum_of_velocities <= sum_of_velocities + unsigned(velocity);    
         temp := 1-temp;
-        if temp = 1 then
+        -- following code works as clock divider by two. Usefull when dealing with division in binary
+        if temp = 1 then 
             s_avg_velocity <= shift_right(unsigned(sum_of_velocities), count_of_shifts);
             count_of_shifts := count_of_shifts;
         end if;
