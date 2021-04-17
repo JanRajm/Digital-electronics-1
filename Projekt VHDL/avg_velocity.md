@@ -19,7 +19,6 @@ architecture behave of e_avg_velocity is
 begin
  
 p_avg_velocity : process(clk)
--- variable temp is used for clk division by 2. When temp is equal to 0, there is no shift
   variable count_of_shifts     : integer := 1;
   variable temp                : integer := 1;
 
