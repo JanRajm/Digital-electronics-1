@@ -1,3 +1,5 @@
+# Computation of avarage speed
+
 ## avg_velocity.vhdl
 ```vhdl
 ----------------------
@@ -31,7 +33,7 @@ p_avg_velocity : process(clk)
         if sum_of_velocities(0) = '1' then                      -- rounding
             sum_of_velocities <= sum_of_velocities + "0000001"; --
         end if;                                                 --
-        temp := 1-temp; -- switching of auxiliary variable by every second rising edge, thus frequency of this variable is half to clock frequency
+        temp := 1-temp; -- switching of auxiliary variable by every other rising edge, thus frequency of this variable is half to clock frequency
         if temp = 1 then
             s_avg_velocity <= shift_right(unsigned(sum_of_velocities), count_of_shifts);
             count_of_shifts := count_of_shifts;
