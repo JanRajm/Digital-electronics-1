@@ -14,20 +14,25 @@ entity e_avg_velocity is
 end e_avg_velocity;
  
 architecture behave of e_avg_velocity is
-  signal s_avg_velocity        : unsigned(7-1 downto 0) := "0000000";
-  signal sum_of_velocities     : unsigned(7-1 downto 0) := "0000000";
+  signal s_avg_velocity        : unsigned(7-1 downto 0)  := "0000000";
+  signal sum_of_velocities     : unsigned(7-1 downto 0)  := "0000000";
+
 begin
  
 p_avg_velocity : process(clk)
-  variable count_of_shifts     : integer := 1;
-  variable temp                : integer := 1;
+-- variable temp is used for clk division by 2. When temp is equal to 0, there is no shift
+-- temp frequency controls dividing by two of sum of velocity samples
+  variable count_of_shifts     : integer                 := 1;
+  variable temp                : integer                 := 1;
 
     begin
     if rising_edge(clk) then
         sum_of_velocities <= sum_of_velocities + unsigned(velocity);    
-        temp := 1-temp;
-        -- Following code works as clock frequency divider by two. Usefull when dealing with division in binary.
-        if temp = 1 then 
+        if sum_of_velocities(0) = '1' then                      -- rounding
+            sum_of_velocities <= sum_of_velocities + "0000001"; --
+        end if;                                                 --
+        temp := 1-temp; -- switching of auxiliary variable by every second rising edge, thus frequency of this variable is half to clock frequency
+        if temp = 1 then
             s_avg_velocity <= shift_right(unsigned(sum_of_velocities), count_of_shifts);
             count_of_shifts := count_of_shifts;
         end if;
