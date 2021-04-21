@@ -125,7 +125,7 @@ begin
 
 end architecture testbench;
 ```
-![obr1](avg_velocity_waveform.PNG) 
+![obr1](projekt-avg-vel-waveform.PNG) 
 ## Notes
 - Output value of avarage velocity for past two values of instantaneous speed.
 - Rounding creates some errors. In our application the errors are negligible.
