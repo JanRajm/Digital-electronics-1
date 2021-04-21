@@ -6,6 +6,7 @@
 -- Made by Jan Rajm --
 ----------------------
 library ieee;
+use IEEE.math_real.all;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;               -- Needed for shifts
 entity e_avg_velocity is
@@ -16,8 +17,8 @@ entity e_avg_velocity is
 end e_avg_velocity;
  
 architecture behave of e_avg_velocity is
-  signal s_avg_velocity        : unsigned(7-1 downto 0)  := "0000000";
-  signal sum_of_velocities     : unsigned(7-1 downto 0)  := "0000000";
+  signal s_avg_velocity        : unsigned(12-1 downto 0)  := "000000000000";
+  signal sum_of_velocities     : unsigned(12-1 downto 0)  := "000000000000";
 
 begin
  
@@ -29,15 +30,17 @@ p_avg_velocity : process(clk)
 
     begin
     if rising_edge(clk) then
+        if temp = 0 then
+            s_avg_velocity <= shift_right(unsigned(sum_of_velocities), count_of_shifts);
+            count_of_shifts := count_of_shifts + 1;
+            temp := 2**count_of_shifts;
+        end if;
         sum_of_velocities <= sum_of_velocities + unsigned(velocity);    
         if sum_of_velocities(0) = '1' then                      -- rounding
             sum_of_velocities <= sum_of_velocities + "0000001"; --
-        end if;                                                 --
-        temp := 1-temp; -- switching of auxiliary variable by every other rising edge, thus frequency of this variable is half to clock frequency
-        if temp = 1 then
-            s_avg_velocity <= shift_right(unsigned(sum_of_velocities), count_of_shifts);
-            count_of_shifts := count_of_shifts;
-        end if;
+        end if;              
+        temp := temp - 1; -- switching of auxiliary variable by every second rising edge, thus frequency of this variable is half to clock frequency
+        
     end if;
  
   end process p_avg_velocity;
