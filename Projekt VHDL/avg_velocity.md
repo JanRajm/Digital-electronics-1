@@ -6,48 +6,68 @@
 -- Made by Jan Rajm --
 ----------------------
 library ieee;
-use IEEE.math_real.all;
-use ieee.std_logic_1164.all;
+use IEEE.math_real.all;                 -- Needed for power
+use ieee.std_logic_1164.all;            -- Basic library
 use ieee.numeric_std.all;               -- Needed for shifts
+
 entity e_avg_velocity is
     Port (
-        clk : in std_logic;
-        velocity : in std_logic_vector(7-1 downto 0)    
+        clk          : in std_logic;
+        reset        : in std_logic;
+        velocity     : in std_logic_vector(7-1 downto 0);
+        avg_velocity : out unsigned(12-1 downto 0)    
     );
 end e_avg_velocity;
  
 architecture behave of e_avg_velocity is
-  signal s_avg_velocity        : unsigned(12-1 downto 0)  := "000000000000";
-  signal sum_of_velocities     : unsigned(12-1 downto 0)  := "000000000000";
 
+  signal sum_of_velocities     : unsigned(12-1 downto 0) := "000000000000";
+  
 begin
  
-p_avg_velocity : process(clk)
--- variable temp is used for clk division by 2. When temp is equal to 0, there is no shift
--- temp frequency controls dividing by two of sum of velocity samples
-  variable count_of_shifts     : integer                 := 1;
-  variable temp                : integer                 := 1;
+p_avg_velocity : process(clk, reset)
+
+  variable count_of_shifts     : integer    := 0;
+  variable clk_cycles          : integer    := 0;
 
     begin
-    if rising_edge(clk) then
-        if temp = 0 then
-            s_avg_velocity <= shift_right(unsigned(sum_of_velocities), count_of_shifts);
-            count_of_shifts := count_of_shifts + 1;
-            temp := 2**count_of_shifts;
-        end if;
-        sum_of_velocities <= sum_of_velocities + unsigned(velocity);    
-        if sum_of_velocities(0) = '1' then                      -- rounding
-            sum_of_velocities <= sum_of_velocities + "0000001"; --
-        end if;              
-        temp := temp - 1; -- switching of auxiliary variable by every second rising edge, thus frequency of this variable is half to clock frequency
+    
+    if rising_edge(reset) then
+        avg_velocity      <= "000000000000";
+        sum_of_velocities <= "000000000000";
+        count_of_shifts := 1;
+        clk_cycles      := 2;
+    else
+        if rising_edge(clk) then 
+                    
+            sum_of_velocities <= sum_of_velocities + unsigned(velocity);             
+                
+            if clk_cycles = 0 then
+                avg_velocity <= shift_right(unsigned(sum_of_velocities), count_of_shifts);
+                count_of_shifts := count_of_shifts + 1;            
+                clk_cycles := 2**(count_of_shifts - 1); 
+            end if;
         
+            clk_cycles := clk_cycles - 1;        
+          
+        end if;
     end if;
- 
   end process p_avg_velocity;
 end architecture behave;
 ```
 ## tb_avg_velocity.vhdl
 ```vhdl
+------------------------------------------------------------------------
+--
+-- Testbench for N-bit Up/Down binary counter.
+-- Nexys A7-50T, Vivado v2020.1.1, EDA Playground
+--
+-- Copyright (c) 2020-Present Tomas Fryza
+-- Dept. of Radio Electronics, Brno University of Technology, Czechia
+-- This work is licensed under the terms of the MIT license.
+--
+------------------------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 
@@ -67,7 +87,9 @@ architecture testbench of tb_cnt_up_down is
 
     --Local signals
     signal s_clk          : std_logic;
+    signal reset          : std_logic;
     signal s_velocity     : std_logic_vector(7-1 downto 0);
+    signal s_avg_velocity : std_logic_vector(12-1 downto 0);
 
 begin
     -- Connecting testbench signals with cnt_up_down entity
@@ -75,9 +97,10 @@ begin
     uut_avg_vel : entity work.e_avg_velocity
         
         port map(
-            clk         => s_clk,
-            velocity    => s_velocity
-            
+            clk                            => s_clk,
+            velocity                       => s_velocity,
+            reset                          => reset,
+            std_logic_vector(avg_velocity) => s_avg_velocity
         );
 
     --------------------------------------------------------------------
@@ -93,23 +116,40 @@ begin
         end loop;
         wait;
     end process p_clk_gen;
+    
+    --------------------------------------------------------------------
+    -- Reset generation process
+    --------------------------------------------------------------------
+    p_reset : process
+    begin
+        reset <= '0';
+        wait for 48 ns;
+        reset <= '1';
+        wait for 25 ns;
+        reset <= '0';
+        wait for 220 ns;
+        reset <= '0';
+        wait for 17ns;
+        reset <= '0';
+        wait;
+    end process p_reset;
 
     --------------------------------------------------------------------
-    -- Data generation process
+    -- Velocity generation process
     --------------------------------------------------------------------
     p_stimulus : process
     begin
-        s_velocity <= "0001000";
+        s_velocity <= "0000000";
         wait for 10 ns;
         s_velocity <= "0001010";
         wait for 10 ns;
         s_velocity <= "0001100";
         wait for 10 ns;
-        s_velocity <= "0001010";
+        s_velocity <= "0001110";
         wait for 10 ns;
-        s_velocity <= "0001001";
+        s_velocity <= "0011001";
         wait for 10 ns;
-        s_velocity <= "0001001";
+        s_velocity <= "0001000";
         wait for 10 ns;
         s_velocity <= "0001010";
         wait for 10 ns;
@@ -120,10 +160,32 @@ begin
         s_velocity <= "0001110";
         wait for 10 ns;
         s_velocity <= "0000000";
-        wait;
+        wait for 10 ns;
+        s_velocity <= "0001000";
+        wait for 10 ns;
+        s_velocity <= "0001010";
+        wait for 10 ns;
+        s_velocity <= "0001100";
+        wait for 10 ns;
+        s_velocity <= "0001010";
+        wait for 10 ns;
+        s_velocity <= "0001001";
+        wait for 10 ns;
+        s_velocity <= "0001000";
+        wait for 10 ns;
+        s_velocity <= "0001010";
+        wait for 10 ns;
+        s_velocity <= "0001010";
+        wait for 10 ns;
+        s_velocity <= "0001100";
+        wait for 10 ns;
+        s_velocity <= "0001110";
+        wait for 10 ns;
+        s_velocity <= "0000000";
     end process p_stimulus;
 
 end architecture testbench;
+
 ```
 ![obr1](projekt-avg_vel-waveform-2.PNG) 
 ## Notes
