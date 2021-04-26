@@ -14,7 +14,7 @@ entity e_avg_velocity is
     Port (
         clk          : in std_logic;
         reset        : in std_logic;
-        velocity     : in std_logic_vector(7-1 downto 0);
+        vel2avg_i    : in std_logic_vector(7-1 downto 0);
         avg_velocity : out unsigned(12-1 downto 0)    
     );
 end e_avg_velocity;
@@ -40,7 +40,7 @@ p_avg_velocity : process(clk, reset)
     else
         if rising_edge(clk) then 
                     
-            sum_of_velocities <= sum_of_velocities + unsigned(velocity);             
+            sum_of_velocities <= sum_of_velocities + unsigned(vel2avg_i);             
                 
             if clk_cycles = 0 then
                 avg_velocity <= shift_right(unsigned(sum_of_velocities), count_of_shifts); -- here comes division of summed velocities 
@@ -98,7 +98,7 @@ begin
         
         port map(
             clk                            => s_clk,
-            velocity                       => s_velocity,
+            vel2avg_i                      => s_velocity,
             reset                          => reset,
             std_logic_vector(avg_velocity) => s_avg_velocity
         );
