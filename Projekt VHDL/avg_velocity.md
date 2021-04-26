@@ -28,23 +28,23 @@ begin
 p_avg_velocity : process(clk, reset)
 
   variable count_of_shifts     : integer    := 0;
-  variable clk_cycles          : integer    := 0;
-
+  variable clk_cycles          : integer    := 0; -- states for how many clock cycles does signal sum_of_velocities adds samples of 
+                                                  --   velocity and for how long does process wait for division
     begin
     
     if rising_edge(reset) then
-        avg_velocity      <= "000000000000";
-        sum_of_velocities <= "000000000000";
+        avg_velocity      <= "000000000000"; -- zeroing value of avarage velocity
+        sum_of_velocities <= "000000000000"; -- zeroing of sum of velocities
         count_of_shifts := 1;
-        clk_cycles      := 2;
+        clk_cycles      := 2; -- shift of one bit correspondents with waiting for two samples os velocity to be summed
     else
         if rising_edge(clk) then 
                     
             sum_of_velocities <= sum_of_velocities + unsigned(velocity);             
                 
             if clk_cycles = 0 then
-                avg_velocity <= shift_right(unsigned(sum_of_velocities), count_of_shifts);
-                count_of_shifts := count_of_shifts + 1;            
+                avg_velocity <= shift_right(unsigned(sum_of_velocities), count_of_shifts); -- here comes division of summed velocities 
+                count_of_shifts := count_of_shifts + 1;                                    --     in order to compute avarage velocity
                 clk_cycles := 2**(count_of_shifts - 1); 
             end if;
         
