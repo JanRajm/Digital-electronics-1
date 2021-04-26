@@ -127,4 +127,4 @@ end architecture testbench;
 ```
 ![obr1](projekt-avg_vel-waveform-2.PNG) 
 ## Notes
-- Rounding creates some errors. In our application these errors are negligible.
+- Rounding creates some errors. In our application these errors are negligible. See value of __s_avg_velocity__ at time 90 ns. It should be 11.
