@@ -188,5 +188,9 @@ end architecture testbench;
 
 ```
 ![obr1](projekt-avg_vel-waveform-2.PNG) 
+![obr2](projekt-avg-vel-dec.PNG) 
+![obr3](projekt-avg-vel-bin.PNG) 
+
+
 ## Notes
 - Rounding creates some errors. In our application these errors are negligible. 
