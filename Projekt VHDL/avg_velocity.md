@@ -12,10 +12,10 @@ use ieee.numeric_std.all;               -- Needed for shifts
 
 entity e_avg_velocity is
     Port (
-        clk          : in std_logic;
-        reset        : in std_logic;
-        vel2avg_i    : in std_logic_vector(10-1 downto 0);
-        avg_velocity : out unsigned(10-1 downto 0)    
+        clk1hz_i       : in std_logic;
+        reset_i        : in std_logic;
+        vel2avg_i      : in std_logic_vector(10-1 downto 0);
+        avg_velocity_0 : out unsigned(10-1 downto 0)    
     );
 end e_avg_velocity;
  
@@ -25,7 +25,7 @@ architecture behave of e_avg_velocity is
   
 begin
  
-p_avg_velocity : process(clk, reset)
+p_avg_velocity : process(clk1hz_i, reset)
 
   variable count_of_shifts     : integer    := 0;
   variable clk_cycles          : integer    := 0; -- states for how many clock cycles does signal sum_of_velocities adds samples of 
@@ -38,7 +38,7 @@ p_avg_velocity : process(clk, reset)
         count_of_shifts := 1;
         clk_cycles      := 2; -- shift of one bit correspondents with waiting for two samples os velocity to be summed
     else
-        if rising_edge(clk) then 
+        if rising_edge(clk1hz_i) then 
                     
             sum_of_velocities <= sum_of_velocities + unsigned(vel2avg_i);             
                 
@@ -97,7 +97,7 @@ begin
     uut_avg_vel : entity work.e_avg_velocity
         
         port map(
-            clk                            => s_clk,
+            clk1hz_i                       => s_clk,
             vel2avg_i                      => s_velocity,
             reset                          => reset,
             std_logic_vector(avg_velocity) => s_avg_velocity
