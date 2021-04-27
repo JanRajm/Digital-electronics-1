@@ -3,7 +3,7 @@
 ```vhdl
 ----------------------------------------------------------------------------------
 -- Company: VUT FEKT
--- Engineer: Matěj Podaný
+-- Engineer: Matěj Podaný, Rajm Jan
 -- 
 -- Create Date: 26.04.2021 17:16:04
 -- Design Name: clock
