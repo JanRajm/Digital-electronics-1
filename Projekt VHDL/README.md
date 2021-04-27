@@ -3,4 +3,4 @@
 ## Coworkers:
 - [**Matěj Podaný**](https://github.com/Matej-Podany/Digital-electronics-1)
 - [**Jan Pelka**](https://github.com/jan-pelka/Digital-electronics)
-- [**Pavol Rohal'**](https://github.com/Matej-Podany/Digital-electronics-1)
+- [**Pavol Rohal'**]()
