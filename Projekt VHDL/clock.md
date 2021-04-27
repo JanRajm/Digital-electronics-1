@@ -104,3 +104,5 @@ begin
                 );
 end Behavioral;
 ```
+![obr2](projekt-clk.PNG) 
+![obr2](projekt-clk-det.PNG) 
