@@ -60,7 +60,7 @@ architecture Behavioral of distance is
             else
                 if rising_edge(TEMP_i) then
                     sum := sum + 1;
-                    if sum > 5 then -- 
+                    if sum > 500 then -- for simulation purpouse set to 5
                       sum := 0;
                       s_distance <= s_distance + "0000000010";    
                     end if;
