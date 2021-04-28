@@ -2,9 +2,6 @@
 
 ## avg_velocity.vhdl
 ```vhdl
-----------------------
--- Made by Jan Rajm --
-----------------------
 library ieee;
 use IEEE.math_real.all;                 -- Needed for power
 use ieee.std_logic_1164.all;            -- Basic library
@@ -15,7 +12,7 @@ entity e_avg_velocity is
         clk1hz_i       : in std_logic;
         reset_i        : in std_logic;
         vel2avg_i      : in std_logic_vector(10-1 downto 0);
-        avg_velocity_0 : out unsigned(10-1 downto 0)    
+        avg_velocity_o : out unsigned(10-1 downto 0)  := "0000000000"  
     );
 end e_avg_velocity;
  
@@ -25,16 +22,16 @@ architecture behave of e_avg_velocity is
   
 begin
  
-p_avg_velocity : process(clk1hz_i, reset)
+p_avg_velocity : process(clk1hz_i, reset_i)
 
-  variable count_of_shifts     : integer    := 0;
-  variable clk_cycles          : integer    := 0; -- states for how many clock cycles does signal sum_of_velocities adds samples of 
+  variable count_of_shifts     : integer    := 1;
+  variable clk_cycles          : integer    := 2; -- states for how many clock cycles does signal sum_of_velocities adds samples of 
                                                   --   velocity and for how long does process wait for division
     begin
     
-    if rising_edge(reset) then
-        avg_velocity      <= "0000000000"; -- zeroing value of avarage velocity
-        sum_of_velocities <= "0000000000"; -- zeroing of sum of velocities
+    if rising_edge(reset_i) then
+        avg_velocity_o      <= "0000000000"; -- zeroing value of avarage velocity
+        sum_of_velocities   <= "0000000000"; -- zeroing of sum of velocities
         count_of_shifts := 1;
         clk_cycles      := 2; -- shift of one bit correspondents with waiting for two samples os velocity to be summed
     else
@@ -43,7 +40,7 @@ p_avg_velocity : process(clk1hz_i, reset)
             sum_of_velocities <= sum_of_velocities + unsigned(vel2avg_i);             
                 
             if clk_cycles = 0 then
-                avg_velocity <= shift_right(unsigned(sum_of_velocities), count_of_shifts); -- division of summed velocities 
+                avg_velocity_o <= shift_right(unsigned(sum_of_velocities), count_of_shifts); -- division of summed velocities 
                 count_of_shifts := count_of_shifts + 1;                                    --   in order to compute avarage velocity
                 clk_cycles := 2**(count_of_shifts - 1); 
             end if;
@@ -97,10 +94,10 @@ begin
     uut_avg_vel : entity work.e_avg_velocity
         
         port map(
-            clk1hz_i                       => s_clk,
-            vel2avg_i                      => s_velocity,
-            reset                          => reset,
-            std_logic_vector(avg_velocity) => s_avg_velocity
+            clk1hz_i                         => s_clk,
+            vel2avg_i                        => s_velocity,
+            reset_i                          => reset,
+            std_logic_vector(avg_velocity_o) => s_avg_velocity
         );
 
     --------------------------------------------------------------------
@@ -109,9 +106,9 @@ begin
     p_clk_gen : process
     begin
         while now < 750 ns loop         -- 75 periods of 100MHz clock
-            s_clk <= '1';
-            wait for 5 ns;
             s_clk <= '0';
+            wait for 5 ns;
+            s_clk <= '1';
             wait for 5 ns;
         end loop;
         wait;
@@ -123,7 +120,7 @@ begin
     p_reset : process
     begin
         reset <= '0';
-        wait for 48 ns;
+        wait for 125 ns;
         reset <= '1';
         wait for 25 ns;
         reset <= '0';
@@ -187,7 +184,7 @@ begin
 end architecture testbench;
 
 ```
-![obr1](projekt-avg_vel-waveform-2.PNG) 
+![obr1](projekt-avg-vel-wf.PNG) 
 ![obr2](projekt-avg-vel-dec.PNG) 
 ![obr3](projekt-avg-vel-bin.PNG) 
 
