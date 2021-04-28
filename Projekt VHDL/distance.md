@@ -297,5 +297,5 @@ begin
         wait;
     end process p_stimulus;
 end architecture testbench;
-
 ```
+![obr1](projekt-distance-wf.PNG)
