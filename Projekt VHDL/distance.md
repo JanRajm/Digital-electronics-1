@@ -62,7 +62,7 @@ architecture Behavioral of distance is
                     sum := sum + 1;
                     if sum > 500 then -- for simulation purpouse set to 5
                       sum := 0;
-                      s_distance <= s_distance + "0000000010";    
+                      s_distance <= s_distance + "0000000001";    
                     end if;
                     distance_o <= std_logic_vector(s_distance);
                  end if;
