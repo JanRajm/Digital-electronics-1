@@ -12,7 +12,7 @@ entity e_avg_velocity is
         clk1hz_i       : in std_logic;
         reset_i        : in std_logic;
         vel2avg_i      : in std_logic_vector(10-1 downto 0);
-        avg_velocity_o : out unsigned(10-1 downto 0)  := "0000000000"  
+        avg_velocity_o : out std_logic_vector(10-1 downto 0)  := "0000000000"  
     );
 end e_avg_velocity;
  
@@ -40,7 +40,7 @@ p_avg_velocity : process(clk1hz_i, reset_i)
             sum_of_velocities <= sum_of_velocities + unsigned(vel2avg_i);             
                 
             if clk_cycles = 0 then
-                avg_velocity_o <= shift_right(unsigned(sum_of_velocities), count_of_shifts); -- division of summed velocities 
+                avg_velocity_o <= std_logic_vector(shift_right(unsigned(sum_of_velocities), count_of_shifts)); -- division of summed velocities 
                 count_of_shifts := count_of_shifts + 1;                                    --   in order to compute avarage velocity
                 clk_cycles := 2**(count_of_shifts - 1); 
             end if;
