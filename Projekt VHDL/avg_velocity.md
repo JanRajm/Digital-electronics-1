@@ -2,6 +2,26 @@
 
 ## avg_velocity.vhdl
 ```vhdl
+----------------------------------------------------------------------------------
+-- Company: BUT
+-- Engineer: Jan Rajm
+-- 
+-- Create Date: 22.04.2021 15:14:37
+-- Design Name: avg_velocity
+-- Module Name: computation - Behavioral
+-- Project Name: school VHDL project
+-- Target Devices: tachometer
+-- Tool Versions: 
+-- Description: computes avarage velocity from samples of velocity
+-- 
+-- Dependencies: 
+-- 
+-- Revision:
+-- Revision 0.01 - File Created
+-- Additional Comments:
+-- 
+----------------------------------------------------------------------------------
+
 library ieee;
 use IEEE.math_real.all;                 -- Needed for power
 use ieee.std_logic_1164.all;            -- Basic library
