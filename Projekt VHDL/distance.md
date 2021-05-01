@@ -60,7 +60,7 @@ architecture Behavioral of distance is
             else
                 if rising_edge(sensor_i) then
                     sum := sum + 1;
-                    if sum > 5 then --for simulation purpouse, in application: if sum > 500 then (...). We operate with wheel with circuit of 2m thus 1km means 500 revolutions. 
+                    if sum > 5 then --for simulation purpouse, in application: if sum > 500 then (...). We consider wheel with circuit of 2m thus 1km means 500 revolutions. 
                       sum := 0;
                       s_distance <= s_distance + "0000000001";    
                     end if;
