@@ -38,7 +38,7 @@ use ieee.numeric_std.all;
 
 entity distance is
   Port ( 
-    TEMP_i     : in std_logic;
+    sensor_i     : in std_logic;
     reset_i    : in std_logic;
     distance_o : out std_logic_vector(10-1 downto 0) := "0000000000"
   );
@@ -49,7 +49,7 @@ architecture Behavioral of distance is
     signal s_distance : unsigned(10-1 downto 0) := "0000000000"; -- necessary for summing
 
     begin
-        p_distance : process(TEMP_i, reset_i)
+        p_distance : process(sensor_i, reset_i)
         
         variable sum : integer := 0; -- counts input signals 
         
@@ -58,18 +58,22 @@ architecture Behavioral of distance is
                 sum := 0;
                 s_distance <= "0000000000";
             else
-                if rising_edge(TEMP_i) then
+                if rising_edge(sensor_i) then
                     sum := sum + 1;
-                    if sum > 500 then -- for simulation purpouse set to 5
+                    if sum > 5 then --for simulation purpouse, in application: if sum > 500 then (...). We operate with wheel with circuit of 2m thus 1km means 500 revolutions. 
                       sum := 0;
                       s_distance <= s_distance + "0000000001";    
                     end if;
-                    distance_o <= std_logic_vector(s_distance);
+                    --distance_o <= std_logic_vector(s_distance);
                  end if;
+                 
+                 distance_o <= std_logic_vector(s_distance);
+                 
             end if;
         end process p_distance;
         
 end Behavioral;
+
 
 ```
 
