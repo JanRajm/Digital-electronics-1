@@ -89,11 +89,11 @@ end Behavioral;
 ### tb_computation.vhdl
 ```vhdl
 ----------------------------------------------------------------------------------
--- Company: 
--- Engineer: 
+-- Company: BUT
+-- Engineer: Jan Rajm
 -- 
 -- Create Date: 01.05.2021 16:06:11
--- Design Name: 
+-- Design Name: testbench of computation module
 -- Module Name: tb_computation - Behavioral
 -- Project Name: 
 -- Target Devices: 
