@@ -683,4 +683,4 @@ end Behavioral;
 ![obr1](projekt-computation.PNG) 
 - required values are displayed correctly with timing by rising edge of clock signal
 - unexpected value of __s_status__ displays __velocity__ as expected
-- signal __reset__ sets required values to zero
+- signal __reset__ sets correctly __avg_velocity__ and __distance__ to zero
