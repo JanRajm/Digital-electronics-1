@@ -181,6 +181,9 @@ p_clk1hz : process
     
 p_sensor : process
     begin
+    ----------------------------
+    -- many signal assignment --
+    ----------------------------
         s_sensor <= '0';
         wait for 10 ms;
         s_sensor <= '1';
